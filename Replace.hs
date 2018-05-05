@@ -18,7 +18,7 @@ dist char1 char2 =
 
 replaceHead :: Edit -> Char -> Edit
 replaceHead ("",  score) new = ("", score)
-replaceHead (str, score) new = ([new] ++ (tail str), distance + score)
+replaceHead (str, score) new = (new : (tail str), distance + score)
     where distance = dist new (head str)
 
 fromSplit :: (String, String) -> Int -> Char -> Edit

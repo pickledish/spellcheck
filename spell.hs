@@ -1,6 +1,6 @@
-import qualified Data.List as List
+import Data.List (sortBy, findIndex, elemIndex)
 import Data.Ord
-import qualified Data.Set as Set
+import Data.Set (Set, member, fromList)
 
 -------------------------------------------------------------------------------
 
@@ -9,8 +9,8 @@ letters = "abcdefghijklmnopqrstuvwxyz"
 
 getCoord :: Char -> Maybe (Int, Int)
 getCoord c = do
-    row <- List.findIndex (\row -> elem c row) keyboard
-    col <- List.elemIndex c (keyboard !! row)
+    row <- findIndex (\row -> elem c row) keyboard
+    col <- elemIndex c (keyboard !! row)
     Just (row, col)
 
 -------------------------------------------------------------------------------
@@ -57,12 +57,12 @@ distInsert before after i = min (dist before i) (dist after i)
 
 -------------------------------------------------------------------------------
 
-correct :: Set.Set String -> String -> String
+correct :: Set String -> String -> String
 correct dictionary str =
     let
         maybeList = replaceAll str
-        actualWords = filter (\p -> Set.member (fst p) dictionary) maybeList
-        sorted = List.sortBy (comparing snd) actualWords
+        actualWords = filter (\p -> member (fst p) dictionary) maybeList
+        sorted = sortBy (comparing snd) actualWords
     in
         fst $ head sorted
 
@@ -70,7 +70,7 @@ correct dictionary str =
 main :: IO ()
 main = do
     file <- readFile "wordsEN.txt"
-    let words = Set.fromList (lines file)
+    let words = fromList (lines file)
     putStrLn "Done with input"
     putStrLn $ correct words "grapefruut"
 
