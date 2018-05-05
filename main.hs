@@ -14,14 +14,10 @@ applyEdits edit = (replaceEdit edit) ++ (insertEdit edit) ++ (deleteEdit edit)
 applyEditsStr :: String -> [Edit]
 applyEditsStr str = applyEdits (str, 0)
 
-filterEdits :: Int -> [Edit] -> [Edit]
-filterEdits cutoff edits = [ e | e <- edits, (snd e) < cutoff ]
-
 correctList :: Set String -> String -> [Edit]
 correctList dictionary str =
-    let maybeList = filterEdits 2 $ applyEditsStr str
-        twiceList = filterEdits 4 $ maybeList >>= applyEdits
-        -- thrieList = filterEdits 6 $ twiceList >>= applyEdits
+    let maybeList = applyEditsStr str
+        twiceList = maybeList >>= applyEdits
         realWords = [ p | p <- twiceList, member (fst p) dictionary ]
     in  sortBy (comparing snd) (nub realWords)
 

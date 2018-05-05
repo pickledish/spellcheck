@@ -19,13 +19,8 @@ threeDist before after ins = min (dist before ins) (dist ins after)
 
 -------------------------------------------------------------------------------
 
-fromMiddle :: Char -> Edit -> Edit
-fromMiddle prev (b:c:rest, score) = (c:rest, score + threeDist prev b c)
-
-fromFront :: Edit -> Edit
 fromFront (a:b:rest, score) = (b:rest, score + dist a b)
-
-fromEnd :: Char -> Edit -> Edit
+fromMiddle prev (b:c:rest, score) = (c:rest, score + threeDist prev b c)
 fromEnd prev (b:[], score) = ([], score + dist prev b)
 
 fromSplit :: (String, String) -> Int -> Edit
@@ -34,7 +29,7 @@ fromSplit (front,  [b]) score = (front ++ newRest, newScore)
     where (newRest, newScore) = fromEnd (last front) ([b], score)
 fromSplit (front, back) score = (front ++ newRest, newScore)
     where (newRest, newScore) = fromMiddle (last front) (back, score)
-    
+
 deleteEdit :: Edit -> [Edit]
 deleteEdit (str, score) = 
     let strlen = (length str) - 1
