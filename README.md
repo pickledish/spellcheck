@@ -10,6 +10,20 @@ Part of the charm of the Norvig corrector is how short the program is, so I trie
 
 **NOTE**, this spellchecker might perform equally terribly as the Norvig corrector, just in very different ways. For example, on input `sfore`, it ranks `afore` and `score` as equally likely corrections, but normal people don't use the word "afore" very much -- they probably wanted "score". I believe one could make a truly great spellchecker by taking both English-language word frequency _and_ key distance into account when suggesting edits, and this is just a demonstration of the latter.
 
+### Example
+```
+Brandon:spellcheck brandon$ cd src/
+Brandon:src brandon$ ghc -O2 main.hs 
+[1 of 5] Compiling Keyboard         ( Keyboard.hs, Keyboard.o )
+[2 of 5] Compiling Insert           ( Insert.hs, Insert.o )
+[3 of 5] Compiling Delete           ( Delete.hs, Delete.o )
+[4 of 5] Compiling Replace          ( Replace.hs, Replace.o )
+[5 of 5] Compiling Main             ( main.hs, main.o )
+Linking main ...
+Brandon:src brandon$ ./main sfore
+[("afore",1),("score",1),("adore",2),("afire",2),("scored",2)...("pore",16)]
+```
+
 ### Instructions
 
 No libraries are used other than a modern `ghc`. Only good for US-layout keyboards!
