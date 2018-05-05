@@ -23,7 +23,7 @@ fromSplit :: (String, String) -> Int -> Char -> Edit
 fromSplit ("",    back) score new = ([new] ++ back, score + dist new (head back))
 fromSplit (front,   "") score new = (front ++ [new], score + dist new (last front))
 fromSplit (front, back) score new = (front ++ [new] ++ back, newScore)
-    where newScore = threeDist (last front) (head back) new
+    where newScore = score + threeDist (last front) (head back) new
 
 insertChar :: Edit -> Char -> [Edit]
 insertChar (str, score) new = 
