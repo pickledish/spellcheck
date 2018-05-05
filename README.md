@@ -14,5 +14,6 @@ Part of the charm of the Norvig corrector is how short the program is, so I trie
 
 No libraries are used other than a modern `ghc`. Only good for US-layout keyboards!
 
-Compile: Clone the repo and then `ghc main.hs`
+Compile: Clone the repo and then `ghc -O2 main.hs`
+
 Run: `./main speling`, will return an ugly list of its best guesses for a correction of `speling`
